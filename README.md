@@ -75,7 +75,7 @@ devoirBDD/
 ├── DIAGRAMME.md                 # Schéma détaillé et dictionnaire des données
 ├── AGENTS.md                    # Directives locales pour Google Antigravity
 ├── .agents/                     # Règles et skills locaux (SQL, Python, test BDD)
-├── docs/                        # Plan de suivi et documentation environnement Python
+├── docs/                        # Plan de suivi, guide Python et documentation environnement
 ├── insertion_echantillon.py     # Script Python psycopg (insertion 1:1 et consultation)
 ├── pyproject.toml               # Configuration projet Python & dépendances (uv / PEP 621)
 ├── uv.lock                      # Verrou d'intégrité des dépendances pour uv
@@ -105,9 +105,25 @@ devoirBDD/
 * **PostgreSQL** (version 14+ recommandée) installé et démarré localement.
 * **Python 3.11+** (3.12 recommandé).
 
-### 2. Configuration des identifiants (`.env`)
+### 2. Configuration des identifiants (`.env`) — Pourquoi ne pas les mettre en dur dans Python ?
 
-Créez votre fichier local `.env` à partir du modèle (ne jamais commiter `.env`) :
+> [!IMPORTANT]
+> **Note pour le travail en binôme sur GitHub :**
+> Dans l'exemple initial du cours, les identifiants PostgreSQL étaient écrits en clair directement dans le script Python pour faire simple. Dès qu'on partage un projet via **Git / GitHub**, cette méthode pose deux problèmes :
+>
+> 1. **Sécurité sur GitHub :** Tout ce qui est écrit dans `insertion_echantillon.py` est envoyé sur GitHub et conservé dans l'historique Git. On ne doit jamais publier un mot de passe (même local) dans le code source.
+> 2. **Travail sur deux PC différents :** Le mot de passe PostgreSQL (voire le port ou l'utilisateur) n'est pas forcément le même sur ton PC et sur le mien. Si les identifiants étaient écrits en dur dans le script, chacun modifierait le fichier de l'autre à chaque `git pull` / `git push`.
+
+**Comment fonctionne la séparation `.env.example` / `.env` ?**
+
+| Fichier | Présent sur GitHub ? | Rôle |
+| :--- | :---: | :--- |
+| `.env.example` | ✅ Oui (partagé) | Sert de **modèle** sans mot de passe réel pour montrer les variables attendues. |
+| `.env` | ❌ Non (ignoré par `.gitignore`) | Contient **tes** vrais identifiants locaux. Il reste uniquement sur ta machine. |
+
+**Étapes à suivre une seule fois après avoir cloné le dépôt :**
+
+1. Créez votre fichier local `.env` à partir du modèle :
 
 ```powershell
 # PowerShell (Windows)
@@ -119,7 +135,8 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-Éditez ensuite `.env` et renseignez votre mot de passe PostgreSQL (`PGPASSWORD`) ainsi que le port/utilisateur si différents de la configuration par défaut (`postgres@localhost:5432`).
+2. Ouvrez votre fichier `.env` et renseignez **votre** mot de passe PostgreSQL local dans `PGPASSWORD` (ainsi que le port/utilisateur s'ils diffèrent de `postgres@localhost:5432`).
+3. Le script [`insertion_echantillon.py`](insertion_echantillon.py) lira automatiquement ce fichier `.env` au démarrage grâce à `python-dotenv` — sans jamais rien modifier dans le code partagé sur GitHub.
 
 ### 3. Déploiement de la base PostgreSQL
 
@@ -165,4 +182,6 @@ uv run python insertion_echantillon.py
   python insertion_echantillon.py
   ```
 
-> 💡 Pour plus de détails sur la cohabitation `uv` / `venv` et la mise à jour de `requirements.txt`, voir [`docs/environnement-python.md`](docs/environnement-python.md).
+> 💡 **Ressources complémentaires :**
+> * Fonctionnement détaillé du script Python par rapport aux fichiers SQL : [`docs/role-script-python.md`](docs/role-script-python.md).
+> * Cohabitation `uv` / `venv` et mise à jour de `requirements.txt` : [`docs/environnement-python.md`](docs/environnement-python.md).
