@@ -1,0 +1,18 @@
+[project]
+name = "devoir-bdd"
+version = "0.1.0"
+description = "Projet SQL 3NF Exploration Spatiale & Planetologie (PostgreSQL + psycopg)"
+readme = "README.md"
+authors = [
+    { name = "GuillaumeWnt", email = "guillaume.winant@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "psycopg[binary]>=3.3.9",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.6",
+]

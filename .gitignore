@@ -1,0 +1,38 @@
+# ==========================================
+# Git Ignore Rules — devoirBDD
+# ==========================================
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.secret
+*.local.json
+
+# Python
+__pycache__/
+*.py[oc]
+*.pyo
+*.pyd
+build/
+dist/
+wheels/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Ruff / Linters / Tests
+.ruff_cache/
+.pytest_cache/
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/

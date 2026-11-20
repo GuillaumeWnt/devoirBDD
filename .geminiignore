@@ -1,0 +1,17 @@
+# ==========================================
+# Gemini CLI Exclusion Rules (devoirBDD)
+# ==========================================
+
+# Secrets & Environment variables
+.env
+.env.*
+*.key
+*.pem
+*.secret
+*.local.json
+
+# Python Virtualenv & Caches
+.venv/
+venv/
+__pycache__/
+.ruff_cache/
