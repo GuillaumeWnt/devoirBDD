@@ -14,8 +14,10 @@ description: Conventions PostgreSQL et normalisation 3NF du projet Exploration S
    - Chaque table possède une clé primaire explicite (`SERIAL PRIMARY KEY` ou clé composite `(id_mission, id_instrument)`).
    - Conserver la relation `1:1` sur `echantillon.id_mission` via `NOT NULL UNIQUE REFERENCES mission (id_mission)`.
    - Protéger les domaines métier via `CHECK` (`distance_soleil_ua > 0`, `masse_grammes > 0`) et les suppressions via `ON DELETE RESTRICT` / `ON DELETE CASCADE` adaptés.
+   - Conserver les contraintes du graphe orienté pondéré sur `trajectoire_orbitale` (`UNIQUE (id_corps_depart, id_corps_arrivee)`, `CHECK (id_corps_depart <> id_corps_arrivee)`, `delta_v_ms > 0`, `duree_jours > 0`).
+   - Ne jamais stocker de mot de passe applicatif en clair dans `utilisateur` (utiliser `password_hash` via `md5(...)`).
    - Ne pas ajouter d'index superflus redondants avec les index implicites (`PRIMARY KEY`, `UNIQUE`).
 3. **Cohérence documentaire :**
-   - Toute évolution du schéma SQL doit être reportée dans `DIAGRAMME.md` (Mermaid ERD + dictionnaire des données) et dans le diagramme Mermaid de `README.md`.
+   - Toute évolution du schéma SQL doit être reportée dans `DIAGRAMME.md` (Mermaid ERD + dictionnaire des données), `README.md` et `docs/architecture-et-modele.md`.
 4. **Encodage :**
    - Enregistrer tous les fichiers `.sql` en **UTF-8 sans BOM**.

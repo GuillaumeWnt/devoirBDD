@@ -1,8 +1,8 @@
 ---
 name: deploy-et-test-bdd
 description: >-
-  Déploie la base PostgreSQL exploration_spatiale, exécute les scripts SQL
-  (schéma 3NF, jeu d'essai, requêtes) et valide insertion_echantillon.py.
+  Déploie la base PostgreSQL exploration_spatiale (8 tables 3NF), exécute les scripts SQL
+  (schéma, jeu d'essai, requêtes) et valide app.py, insertion_echantillon.py et import_csv.py.
   Utiliser lors d'une mise en place locale, d'un reset complet ou d'une vérification BDD.
 ---
 
@@ -33,24 +33,28 @@ Sous PowerShell (avec `psql` dans le `PATH` ou chemin complet PostgreSQL, par ex
    psql -h localhost -U postgres -d exploration_spatiale -v ON_ERROR_STOP=1 -f ./sql/03_queries.sql
    ```
 
-## 3. Valider le script Python et le linter
+## 3. Valider les scripts Python et le linter
 
 1. Avec `uv` :
    ```powershell
    uv sync
    uv run ruff check .
+   uv run python app.py
    uv run python insertion_echantillon.py
+   uv run python import_csv.py data/exemple_corps_celestes.csv --dry-run
    ```
 2. Avec un `venv` classique (collaborateur sans `uv`) :
    ```powershell
    python -m venv .venv
    .\.venv\Scripts\Activate.ps1
    pip install -r requirements.txt
-   python insertion_echantillon.py
+   python app.py
    ```
 
 ## 4. Critères de réussite
 
-- `01_schema.sql`, `02_seed.sql` et `03_queries.sql` s'exécutent sans erreur SQL.
+- `01_schema.sql` (8 tables), `02_seed.sql` et `03_queries.sql` (3 états + graphe + auth MD5) s'exécutent sans erreur SQL.
 - `uv run ruff check .` retourne 0 erreur.
+- `app.py` authentifie les 3 profils via `md5(%s)`, contrôle les droits d'écriture/suppression, exécute CRUD + vérifications, les 3 états et Dijkstra sur le graphe orbital.
 - `insertion_echantillon.py` affiche `[OK] Connecté avec succès à la base 'exploration_spatiale'`, `[INSERT/UPDATE]`, `[COMMIT]`, puis 4 échantillons (`PER-01-ROU`, `MSL-01-CUM`, `ROS-01-COM`, `ART-01-REG`).
+- `import_csv.py --dry-run` valide les 3 lignes du fichier exemple sans modifier la base.

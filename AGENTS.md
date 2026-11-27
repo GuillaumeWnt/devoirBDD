@@ -6,10 +6,10 @@
 
 ## 1. Vue d'ensemble & Règles Propres au Dépôt
 
-1. **Modèle relationnel PostgreSQL (3NF) :**
-   - Les 5 tables (`corps_celeste`, `mission`, `instrument_scientifique`, `mission_instrument`, `echantillon`) modélisent des relations `1:N`, `N:M` et `1:1` stricte (`UNIQUE` sur `echantillon.id_mission`).
+1. **Modèle relationnel PostgreSQL (3NF — 8 tables) :**
+   - Les 8 tables (`profil`, `utilisateur`, `corps_celeste`, `trajectoire_orbitale`, `mission`, `instrument_scientifique`, `mission_instrument`, `echantillon`) modélisent des relations `1:N`, `M:N`, `1:1` stricte (`UNIQUE` sur `echantillon.id_mission`), l'authentification par empreinte `md5()` et un graphe orienté pondéré (double sens autorisé).
    - Respecter l'ordre d'exécution : `sql/01_schema.sql` ➔ `sql/02_seed.sql` ➔ `sql/03_queries.sql`.
-   - Toute modification de table ou contrainte doit être répercutée dans [`DIAGRAMME.md`](DIAGRAMME.md) et [`README.md`](README.md).
+   - Toute modification de table ou contrainte doit être répercutée dans [`DIAGRAMME.md`](DIAGRAMME.md), [`README.md`](README.md) et [`docs/architecture-et-modele.md`](docs/architecture-et-modele.md).
 2. **Collaboration Python hybride (`uv` + `venv`) :**
    - Environnement principal géré par `uv` (`pyproject.toml` + `uv.lock`, Python 3.11+ / `.python-version` `3.12`).
    - Après toute modification de dépendance (`uv add` / `uv remove`), régénérer **`requirements.txt`** via `uv export --format requirements.txt --no-hashes --no-dev --no-emit-project -o requirements.txt` pour les collaborateurs utilisant `python -m venv` + `pip`.
