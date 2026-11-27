@@ -1,56 +1,23 @@
 """
-PROJET : EXPLORATION SPATIALE & PLANÉTOLOGIE (3NF)
+PROJET : EXPLORATION SPATIALE & PLANÉTOLOGIE (3NF — 8 TABLES)
 Fichier : insertion_echantillon.py
-Description : Script Python (psycopg) d'insertion sécurisée et de lecture
-              adapté à la relation 1:1 (mission <-> echantillon)
+Description : Script autonome démontrant l'insertion sécurisée paramétrée (%s)
+              avec gestion de la relation 1:1 (mission <-> echantillon) via UPSERT.
 """
 
-import os
-import sys
-from pathlib import Path
-
-import psycopg
-from dotenv import load_dotenv
-
-
-def configurer_sortie_utf8() -> None:
-    """Configure la console standard en UTF-8 pour les accents sous Windows."""
-    for flux in (sys.stdout, sys.stderr):
-        if hasattr(flux, "reconfigure"):
-            flux.reconfigure(encoding="utf-8", errors="replace")
-
-
-def charger_config_db() -> dict[str, str | int]:
-    """Charge la configuration PostgreSQL depuis le fichier .env et l'environnement."""
-    env_path = Path(__file__).resolve().parent / ".env"
-    load_dotenv(env_path)
-
-    mot_de_passe = os.getenv("PGPASSWORD")
-    if not mot_de_passe:
-        raise RuntimeError(
-            "Variable PGPASSWORD manquante. Copiez '.env.example' vers '.env' "
-            "puis renseignez votre mot de passe PostgreSQL."
-        )
-
-    return {
-        "dbname": os.getenv("PGDATABASE", "exploration_spatiale"),
-        "user": os.getenv("PGUSER", "postgres"),
-        "password": mot_de_passe,
-        "host": os.getenv("PGHOST", "localhost"),
-        "port": int(os.getenv("PGPORT", "5432")),
-    }
+from db import charger_config_db, configurer_sortie_utf8, ouvrir_connexion
 
 
 def main() -> None:
     """Exécute l'insertion 1:1 (UPSERT) d'un échantillon puis affiche la table."""
     configurer_sortie_utf8()
-    db_params = charger_config_db()
+    db_config = charger_config_db()
 
     print("Connexion à la base de données PostgreSQL...")
 
     # 1. Connexion à la base de données
-    with psycopg.connect(**db_params) as conn, conn.cursor() as cur:
-        print(f"[OK] Connecté avec succès à la base '{db_params['dbname']}'.\n")
+    with ouvrir_connexion(db_config) as conn, conn.cursor() as cur:
+        print(f"[OK] Connecté avec succès à la base '{db_config.dbname}'.\n")
 
         # 2. Données du nouvel échantillon (attribué à la mission Artemis III, id_mission = 5)
         # En relation 1:1, chaque mission ne peut avoir qu'un seul échantillon
