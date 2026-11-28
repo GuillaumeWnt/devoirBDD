@@ -1,0 +1,280 @@
+﻿mission,launch_date,country,mission_type,target,attempted,launch_failure,launch_vehicle,mass_kg
+Sputnik 1,1957-10-04,Soviet Union,Earth Orbiter,Earth / near-Earth space,false,false,,
+Sputnik 2,1957-11-03,Soviet Union,Earth Orbiter,Earth / near-Earth space,false,false,,
+Vanguard TV3,1957-12-06,United States,Attempted Earth Orbiter,Earth / near-Earth space,true,true,,
+Explorer 1,1958-02-01,United States,Earth Orbiter,Earth / near-Earth space,false,false,,
+Vanguard 1,1958-03-17,United States,Earth Orbiter,Earth / near-Earth space,false,false,,
+Pioneer 0,1958-08-17,United States,Attempted Lunar Orbit,Moon,true,true,,
+Luna 1958A,1958-09-23,Soviet Union,Attempted Lunar Impact?,Moon,true,true,,
+Pioneer 1,1958-10-11,United States,Attempted Lunar Orbit,Moon,true,true,,
+Luna 1958B,1958-10-12,Soviet Union,Attempted Lunar Impact?,Moon,true,true,,
+Pioneer 2,1958-11-08,United States,Attempted Lunar Orbit,Moon,true,true,,
+Luna 1958C,1958-12-04,Soviet Union,Attempted Lunar Impact?,Moon,true,true,,
+Pioneer 3,1958-12-06,United States,Attempted Lunar Flyby,Moon,true,true,,
+Luna 1,1959-01-02,Soviet Union,Lunar Flyby (Attempted Lunar Impact?),Moon,true,false,,
+Pioneer 4,1959-03-03,United States,Lunar Flyby,Moon,false,false,,
+Luna 1959A,1959-06-16,Soviet Union,Attempted Lunar Impact?,Moon,true,true,,
+Luna 2,1959-09-12,Soviet Union,Lunar Impact,Moon,false,false,,
+Luna 3,1959-10-04,Soviet Union,Lunar Flyby,Moon,false,false,,
+Pioneer P-3,1959-11-26,United States,Attempted Lunar Orbiter,Moon,true,true,Atlas-Able,168.7
+Luna 1960A,1960-04-15,Soviet Union,Attempted Lunar Flyby,Moon,true,true,,
+Luna 1960B,1960-04-18,Soviet Union,Attempted Lunar Flyby,Moon,true,true,,
+Mars 1960A,1960-10-10,Soviet Union,Attempted Mars Flyby,Mars,true,true,,
+Mars 1960B,1960-10-14,Soviet Union,Attempted Mars Flyby,Mars,true,true,,
+Pioneer P-31,1960-12-15,United States,Attempted Lunar Orbiter,Moon,true,true,Atlas-Able,175
+Sputnik 7,1961-02-04,Soviet Union,Attempted Venus Impact,Venus,true,false,,
+Venera 1,1961-02-12,Soviet Union,Venus Flyby (Contact Lost),Venus,false,false,,
+Ranger 1,1961-08-23,United States,Attempted Lunar Test Flight,Moon,true,false,Atlas-Agena B,306.2
+Ranger 2,1961-11-18,United States,Attempted Lunar Test Flight,Moon,true,false,Atlas-Agena B,304
+Ranger 3,1962-01-26,United States,Attempted Lunar Impact,Moon,true,false,Atlas-Agena B,329.8
+Ranger 4,1962-04-23,United States,Lunar Impact,Moon,false,false,Atlas-Agena B,331.1
+Mariner 1,1962-07-22,United States,Attempted Venus Flyby,Venus,true,true,Atlas-Agena B,202.8
+Sputnik 19,1962-08-25,Soviet Union,Attempted Venus Flyby,Venus,true,false,,
+Mariner 2,1962-08-27,United States,Venus Flyby,Venus,false,false,Atlas-Agena B,202.8
+Sputnik 20,1962-09-01,Soviet Union,Attempted Venus Flyby,Venus,true,false,,
+Sputnik 21,1962-09-12,Soviet Union,Attempted Venus Flyby,Venus,true,false,,
+Ranger 5,1962-10-18,United States,Attempted Lunar Impact,Moon,true,false,Atlas-Agena B,342.5
+Sputnik 22,1962-10-24,Soviet Union,Attempted Mars Flyby,Mars,true,false,,
+Mars 1,1962-11-01,Soviet Union,Mars Flyby (Contact Lost),Mars,false,false,,
+Sputnik 24,1962-11-04,Soviet Union,Attempted Mars Lander,Mars,true,false,,
+Sputnik 25,1963-01-04,Soviet Union,Attempted Lunar Lander,Moon,true,false,,
+Luna 1963B,1963-02-02,Soviet Union,Attempted Lunar Lander,Moon,true,true,,
+Luna 4,1963-04-02,Soviet Union,Attempted Lunar Lander,Moon,true,false,,
+Cosmos 21,1963-11-11,Soviet Union,Attempted Venera Test Flight?,Venus,true,false,,
+Ranger 6,1964-01-30,United States,Lunar Impact (Cameras Failed),Moon,false,false,Atlas-Agena B,381
+Venera 1964A,1964-02-19,Soviet Union,Attempted Venus Flyby,Venus,true,true,,
+Venera 1964B,1964-03-01,Soviet Union,Attempted Venus Flyby,Venus,true,true,,
+Luna 1964A,1964-03-21,Soviet Union,Attempted Lunar Lander,Moon,true,true,,
+Cosmos 27,1964-03-27,Soviet Union,Attempted Venus Flyby,Venus,true,false,,
+Zond 1,1964-04-02,Soviet Union,Venus Flyby (Contact Lost),Venus,false,false,,
+Luna 1964B,1964-04-20,Soviet Union,Attempted Lunar Lander,Moon,true,true,,
+Zond 1964A,1964-06-04,Soviet Union,Attempted Lunar Lander,Moon,true,true,,
+Ranger 7,1964-07-28,United States,Lunar Impact,Moon,false,false,Atlas-Agena B,365.7
+Mariner 3,1964-11-05,United States,Attempted Mars Flyby,Mars,true,false,Atlas-Agena D,260.8
+Mariner 4,1964-11-28,United States,Mars Flyby,Mars,false,false,Atlas-Agena D,260.68
+Zond 2,1964-11-30,Soviet Union,Mars Flyby (Contact Lost),Mars,false,false,,
+Ranger 8,1965-02-17,United States,Lunar Impact,Moon,false,false,Atlas-Agena B,367
+Cosmos 60,1965-03-12,Soviet Union,Attempted Lunar Lander,Moon,true,false,,
+Ranger 9,1965-03-21,United States,Lunar Impact,Moon,false,false,Atlas-Agena B,367
+Luna 1965A,1965-04-10,Soviet Union,Attempted Lunar Lander?,Moon,true,true,,
+Luna 5,1965-05-09,Soviet Union,Lunar Impact (Attempted Soft Landing),Moon,true,false,,
+Luna 6,1965-06-08,Soviet Union,Attempted Lunar Lander,Moon,true,false,,
+Zond 3,1965-07-18,Soviet Union,Lunar Flyby,Moon,false,false,,
+Luna 7,1965-10-04,Soviet Union,Lunar Impact (Attempted Soft Landing),Moon,true,false,,
+Venera 2,1965-11-12,Soviet Union,Venus Flyby (Contact Lost),Venus,false,false,,
+Venera 3,1965-11-16,Soviet Union,Venus Lander (Contact Lost),Venus,false,false,,
+Cosmos 96,1965-11-23,Soviet Union,Attempted Venus Lander?,Venus,true,false,,
+Venera 1965A,1965-11-23,Soviet Union,Attempted Venus Flyby,Venus,true,true,,
+Luna 8,1965-12-03,Soviet Union,Lunar Impact (Attempted Soft Landing?),Moon,true,false,,
+Luna 9,1966-01-31,Soviet Union,Lunar Lander,Moon,false,false,,
+Cosmos 111,1966-03-01,Soviet Union,Attempted Lunar Orbiter?,Moon,true,false,,
+Luna 10,1966-03-31,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Luna 1966A,1966-04-30,Soviet Union,Attempted Lunar Orbiter?,Moon,true,true,,
+Surveyor 1,1966-05-30,United States,Lunar Lander,Moon,false,false,Atlas-Centaur,294.3
+Explorer 33,1966-07-01,United States,Attempted Lunar Orbiter,Moon,true,false,Delta,93.4
+Lunar Orbiter 1,1966-08-10,United States,Lunar Orbiter,Moon,false,false,Atlas-Agena D,385.6
+Luna 11,1966-08-24,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Surveyor 2,1966-09-20,United States,Attempted Lunar Lander,Moon,true,false,Atlas-Centaur,292
+Luna 12,1966-10-22,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Lunar Orbiter 2,1966-11-06,United States,Lunar Orbiter,Moon,false,false,Atlas-Agena D,385.6
+Luna 13,1966-12-21,Soviet Union,Lunar Lander,Moon,false,false,,
+Lunar Orbiter 3,1967-02-04,United States,Lunar Orbiter,Moon,false,false,Atlas-Agena D,385.6
+Surveyor 3,1967-04-17,United States,Lunar Lander,Moon,false,false,Atlas-Centaur,296
+Lunar Orbiter 4,1967-05-08,United States,Lunar Orbiter,Moon,false,false,,
+Venera 4,1967-06-12,Soviet Union,Venus Probe,Venus,false,false,,
+Mariner 5,1967-06-14,United States,Venus Flyby,Venus,false,false,Atlas-Agena D,244.9
+Cosmos 167,1967-06-17,Soviet Union,Attempted Venus Probe,Venus,true,false,,
+Surveyor 4,1967-07-14,United States,Attempted Lunar Lander,Moon,true,false,Atlas-Centaur,283
+Explorer 35 (IMP-E),1967-07-19,United States,Lunar Orbiter,Moon,false,false,Thrust Augmented Delta,93.5
+Lunar Orbiter 5,1967-08-01,United States,Lunar Orbiter,Moon,false,false,Atlas-Agena D,385.6
+Surveyor 5,1967-09-08,United States,Lunar Lander,Moon,false,false,Atlas-Centaur,303
+Zond 1967A,1967-09-28,Soviet Union,Attempted Lunar Test Flight,Moon,true,true,,
+Surveyor 6,1967-11-07,United States,Lunar Lander,Moon,false,false,Atlas-Centaur,299.6
+Zond 1967B,1967-11-22,Soviet Union,Attempted Lunar Test Flight,Moon,true,true,,
+Surveyor 7,1968-01-07,United States,Lunar Lander,Moon,false,false,Atlas-Centaur,305.7
+Luna 1968A,1968-02-07,Soviet Union,Attempted Lunar Orbiter,Moon,true,true,,
+Zond 4,1968-03-02,Soviet Union,Test Flight,,false,false,,
+Luna 14,1968-04-07,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Zond 1968A,1968-04-23,Soviet Union,Attempted Lunar Test Flight?,Moon,true,true,,
+Zond 5,1968-09-15,Soviet Union,Lunar Flyby and Return to Earth,Moon,false,false,,
+Zond 6,1968-11-10,Soviet Union,Lunar Flyby and Return to Earth,Moon,false,false,,
+Apollo 8,1968-12-21,United States,Crewed Lunar Orbiter,Moon,false,false,,
+Venera 5,1969-01-05,Soviet Union,Venus Probe,Venus,false,false,,
+Venera 6,1969-01-10,Soviet Union,Venus Probe,Venus,false,false,,
+Zond 1969A,1969-01-20,Soviet Union,Attempted Lunar Flyby and Return,Moon,true,true,,
+Luna 1969A,1969-02-19,Soviet Union,Attempted Lunar Rover?,Moon,true,true,,
+Zond L1S-1,1969-02-21,Soviet Union,Attempted Lunar Orbiter,Moon,true,true,,
+Mariner 6,1969-02-25,United States,Mars Flyby,Mars,false,false,Atlas-Centaur,411.8
+Mariner 7,1969-03-27,United States,Mars Flyby,Mars,false,false,Atlas-Centaur,411.8
+Mars 1969A,1969-03-27,Soviet Union,Attempted Mars Orbiter,Mars,true,true,,
+Mars 1969B,1969-04-02,Soviet Union,Attempted Mars Orbiter,Mars,true,true,,
+Luna 1969B,1969-04-15,Soviet Union,Attempted Lunar Sample Return?,Moon,true,true,,
+Apollo 10,1969-05-18,United States,Crewed Lunar Orbiter,Moon,false,false,,
+Luna 1969C,1969-06-14,Soviet Union,Attempted Lunar Sample Return?,Moon,true,true,,
+Zond L1S-2,1969-07-03,Soviet Union,Attempted Lunar Orbiter,Moon,true,true,,
+Luna 15,1969-07-13,Soviet Union,Lunar Orbiter (Attempted Lunar Lander?),Moon,true,false,,
+Apollo 11,1969-07-16,United States,Crewed Lunar Landing,Moon,false,false,,
+Zond 7,1969-08-07,Soviet Union,Lunar Flyby and Return to Earth,Moon,false,false,,
+Cosmos 300,1969-09-23,Soviet Union,Attempted Lunar Sample Return?,Moon,true,false,,
+Cosmos 305,1969-10-22,Soviet Union,Attempted Lunar Sample Return?,Moon,true,false,,
+Apollo 12,1969-11-14,United States,Crewed Lunar Landing,Moon,false,false,,
+Luna 1970A,1970-02-06,Soviet Union,Attempted Lunar Sample Return?,Moon,true,true,,
+Luna 1970B,1970-02-19,Soviet Union,Attempted Lunar Orbiter?,Moon,true,true,,
+Apollo 13,1970-04-11,United States,Crewed Lunar Mission (Landing Aborted),Moon,false,false,,
+Venera 7,1970-08-17,Soviet Union,Venus Lander,Venus,false,false,,
+Cosmos 359,1970-08-22,Soviet Union,Attempted Venus Probe,Venus,true,false,,
+Luna 16,1970-09-12,Soviet Union,Lunar Sample Return,Moon,false,false,,
+Zond 8,1970-10-20,Soviet Union,Lunar Flyby and Return to Earth,Moon,false,false,,
+Luna 17/Lunokhod 1,1970-11-10,Soviet Union,Lunar Rover,Moon,false,false,,
+Apollo 14,1971-01-31,United States,Crewed Lunar Landing,Moon,false,false,,
+Mariner 8,1971-05-09,United States,Attempted Mars Flyby,Mars,true,true,Atlas-Centaur,558.8
+Cosmos 419,1971-05-10,Soviet Union,Attempted Mars Orbiter/Lander,Mars,true,false,,
+Mars 2,1971-05-19,Soviet Union,Mars Orbiter/ Attempted Lander,Mars,true,false,,
+Mars 3,1971-05-28,Soviet Union,Mars Orbiter/ Lander,Mars,false,false,,
+Mariner 9,1971-05-30,United States,Mars Orbiter,Mars,false,false,Atlas-Centaur,558.8
+Apollo 15,1971-07-26,United States,Crewed Lunar Landing,Moon,false,false,,
+Luna 18,1971-09-02,Soviet Union,Attempted Lunar Sample Return,Moon,true,false,,
+Luna 19,1971-09-28,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Luna 20,1972-02-14,Soviet Union,Lunar Sample Return,Moon,false,false,,
+Pioneer 10,1972-03-03,United States,Jupiter Flyby,Jupiter,false,false,Atlas-Centaur,258
+Venera 8,1972-03-27,Soviet Union,Venus Probe,Venus,false,false,,
+Cosmos 482,1972-03-31,Soviet Union,Attempted Venus Probe,Venus,true,false,,
+Apollo 16,1972-04-16,United States,Crewed Lunar Landing,Moon,false,false,,
+Soyuz L3,1972-11-23,Soviet Union,Attempted Lunar Orbiter,Moon,true,true,,
+Apollo 17,1972-12-07,United States,Crewed Lunar Landing,Moon,false,false,,
+Luna 21/Lunokhod 2,1973-01-08,Soviet Union,Lunar Rover,Moon,false,false,,
+Pioneer 11,1973-04-05,United States,Jupiter/Saturn Flyby,Jupiter,false,false,Atlas-Centaur,259
+Skylab,1973-05-14,United States,Crewed Earth Orbiter,Earth / near-Earth space,false,false,Saturn 5,90607
+Explorer 49 (RAE-B),1973-06-10,United States,Lunar Orbiter/Radio Astronomy,Moon,false,false,Delta,328
+Mars 4,1973-07-21,Soviet Union,Mars Flyby (Attempted Mars Orbiter),Mars,true,false,,
+Mars 5,1973-07-25,Soviet Union,Mars Orbiter,Mars,false,false,,
+Mars 6,1973-08-05,Soviet Union,Mars Lander (Contact Lost),Mars,false,false,,
+Mars 7,1973-08-09,Soviet Union,Mars Flyby (Attempted Mars Lander),Mars,true,false,,
+Mariner 10,1973-11-04,United States,Venus/Mercury Flybys,Venus,false,false,Atlas-Centaur,473.9
+Luna 22,1974-06-02,Soviet Union,Lunar Orbiter,Moon,false,false,,
+Luna 23,1974-10-28,Soviet Union,Attempted Lunar Sample Return,Moon,true,false,,
+Venera 9,1975-06-08,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Venera 10,1975-06-14,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Viking 1,1975-08-20,United States,Mars Orbiter and Lander,Mars,false,false,,
+Viking 2,1975-09-09,United States,Mars Orbiter and Lander,Mars,false,false,,
+Luna 1975A,1975-10-16,Soviet Union,Attempted Lunar Sample Return?,Moon,true,false,,
+Luna 24,1976-08-09,Soviet Union,Lunar Sample Return,Moon,false,false,,
+Voyager 2,1977-08-20,United States,Jupiter/Saturn/Uranus/Neptune Flyby,Jupiter,false,false,Titan IIIE-Centaur,721.9
+Voyager 1,1977-09-05,United States,Jupiter/Saturn Flyby,Jupiter,false,false,Titan IIIE-Centaur,721.9
+Pioneer Venus 1,1978-05-20,United States,Venus Orbiter,Venus,false,false,,
+Pioneer Venus 2,1978-08-08,United States,Venus Probes,Venus,false,false,,
+ISEE-3/ICE,1978-08-12,United States,Comet Giacobini-Zinner and Halley Flybys,Comet,false,false,Delta,390
+Venera 11,1978-09-09,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Venera 12,1978-09-14,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Venera 13,1981-10-30,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Venera 14,1981-11-04,Soviet Union,Venus Orbiter and Lander,Venus,false,false,,
+Venera 15,1983-06-02,Soviet Union,Venus Orbiter,Venus,false,false,,
+Venera 16,1983-06-07,Soviet Union,Venus Orbiter,Venus,false,false,,
+Vega 1,1984-12-15,Soviet Union,Venus Lander and Balloon/Comet Halley Flyby,Venus,false,false,,
+Vega 2,1984-12-21,Soviet Union,Venus Lander and Balloon/Comet Halley Flyby,Venus,false,false,,
+Sakigake,1985-01-07,Japan,Comet Halley Flyby,Comet,false,false,,
+Giotto,1985-07-02,European Space Agency,Comet Halley Flyby,Comet,false,false,,
+Suisei (Planet-A),1985-08-18,Japan,Comet Halley Flyby,Comet,false,false,,
+Phobos 1,1988-07-07,Soviet Union,Attempted Mars Orbiter/Phobos Lander,Mars,true,false,,
+Phobos 2,1988-07-12,Soviet Union,Mars Orbiter/Attempted Phobos Lander,Mars,true,false,,
+Magellan,1989-05-04,United States,Venus Orbiter,Venus,false,false,,
+Galileo,1989-10-18,United States,Jupiter Orbiter and Probe,Jupiter,false,false,,
+Hiten,1990-01-24,Japan,Lunar Flyby and Orbiter,Moon,false,false,,
+Hubble Space Telescope,1990-04-25,United States,Earth Orbiting Observatory,Earth / near-Earth space,false,false,,
+Ulysses,1990-10-06,European Space Agency,Jupiter Flyby and Solar Polar Orbiter,Jupiter,false,false,,
+Mars Observer,1992-09-25,United States,Attempted Mars Orbiter (Contact Lost),Mars,true,false,,
+Clementine,1994-01-25,United States,Lunar Orbiter/Attempted Asteroid Flyby,Moon,true,false,,
+NEAR,1996-02-17,United States,Asteroid Eros Orbiter,Asteroid,false,false,Delta II 7925,487
+Mars Global Surveyor,1996-11-07,United States,Mars Orbiter,Mars,false,false,,
+Mars 96,1996-11-16,Russia,Attempted Mars Orbiter/Landers,Mars,true,false,,
+Mars Pathfinder,1996-12-04,United States,Mars Lander and Rover,Mars,false,false,,
+Cassini,1997-10-15,United States,Saturn Orbiter,Saturn,false,false,,
+Huygens,1997-10-15,European Space Agency,Titan Probe,Titan,false,false,,
+AsiaSat 3/HGS-1,1997-12-24,United States,Lunar Flyby,Moon,false,false,,
+Lunar Prospector,1998-01-07,United States,Lunar Orbiter,Moon,false,false,Athena 2,158.7
+Nozomi (Planet-B),1998-07-03,Japan,Mars Orbiter,Mars,false,false,,
+Deep Space 1 (DS1),1998-10-24,United States,Asteroid and Comet Flyby,Asteroid,false,false,Delta II 7326,373.7
+Mars Climate Orbiter,1998-12-11,United States,Attempted Mars Orbiter,Mars,true,false,Delta II 7425,338
+Mars Polar Lander,1999-01-03,United States,Attempted Mars Lander,Mars,true,false,Delta II 7425,290
+Deep Space 2 (DS2),1999-01-03,United States,Attempted Mars Penetrators,Mars,true,false,Delta II 7425,3.57
+Stardust,1999-02-07,United States,Comet Coma Sample Return,Comet,false,false,Delta II 7426,300
+2001 Mars Odyssey,2001-04-07,United States,Mars Orbiter,Mars,false,false,Delta II 7425,376.3
+Genesis,2001-08-08,United States,Solar Wind Sample Return,Sun,false,false,Delta II 7326,494
+CONTOUR,2002-07-03,United States,Fly-by of three Comet Nuclei,Comet,false,false,Delta II 7425,328
+Hayabusa (Muses-C),2003-05-09,Japan,Asteroid Orbiter and Sample Return,Asteroid,false,false,,
+Mars Express,2003-06-02,European Space Agency,Mars Orbiter and Lander,Mars,false,false,,
+Spirit (MER-A),2003-06-10,United States,Mars Rover,Mars,false,false,Delta II 7925,185
+Opportunity (MER-B),2003-07-08,United States,Mars Rover,Mars,false,false,Delta II 7925,185
+Rosetta,2004-03-02,European Space Agency,Comet Orbiter and Lander,Comet,false,false,,
+MESSENGER,2004-08-03,United States,Mercury Orbiter,Mercury,false,false,Delta II 7925,485.2
+Deep Impact,2005-01-12,United States,Comet Rendezvous and Impact,Comet,false,false,Delta II,650
+Mars Reconnaisance Orbiter,2005-08-12,United States,Mars Orbiter,Mars,false,false,Atlas V 401,1031
+Venus Express,2005-11-09,European Space Agency,ESA Venus Orbiter,Venus,false,false,,
+New Horizons,2006-01-19,United States,Pluto/Charon and Kuiper Belt Flyby,Pluto,false,false,Atlas V,385
+Phoenix,2007-08-04,United States,Small Mars Scout Lander,Mars,false,false,Delta II,
+Kaguya (SELENE),2007-09-14,Japan,Lunar Orbiter,Moon,false,false,,
+Dawn,2007-09-27,United States,Asteroid Ceres and Vesta Orbiter,Asteroid,false,false,Delta II 7925,725
+Chang'e 1,2007-10-24,China,CAST (China) Lunar Orbiter,Moon,false,false,,
+Chandrayaan-1,2008-10-22,India,ISRO (India) Lunar Orbiter,Moon,false,false,,
+Kepler,2009-03-07,United States,Extrasolar Terrestrial Planet Detection Mission,,false,false,,
+Lunar Reconnaissance Orbiter,2009-06-18,United States,Lunar Orbiter,Moon,false,false,Atlas V 401,500
+LCROSS,2009-06-18,United States,Lunar Impactor,Moon,false,false,Atlas V 401,534
+Akatsuki/Planet-C,2010-05-20,Japan,ISAS Venus Orbiter,Venus,false,false,,
+Chang'e 2,2010-10-01,China,CAST (China) Lunar Orbiter,Moon,false,false,,
+Juno,2011-08-05,United States,Jupiter Orbiter,Jupiter,false,false,Atlas V,1500
+GRAIL,2011-09-10,United States,Lunar Orbiter,Moon,false,false,Delta II,132.6
+Phobos-Grunt,2011-11-08,Russia,Attempted Martian Moon Phobos Lander,Mars,true,false,,
+Yinghuo-1,2011-11-08,China,Attempted Mars Orbiter,Mars,true,false,,
+Mars Science Laboratory,2011-11-26,United States,Mars Rover,Mars,false,false,Atlas V,750
+LADEE,2013-09-06,United States,Lunar Orbiter,Moon,false,false,Minotaur 5,248.2
+Mangalyaan,2013-11-05,India,ISRO (India) Mars Orbiter,Mars,false,false,,
+MAVEN,2013-11-18,United States,Mars Scout Mission Orbiter,Mars,false,false,Atlas V 401,
+Chang'e 3,2013-12-01,China,Lunar Lander and Rover,Moon,false,false,,
+Chang'e 5 Test Vehicle,2014-10-23,China,Lunar Flyby and Return,Moon,false,false,,
+Hayabusa 2,2014-12-03,Japan,JAXA Asteroid Sample Return,Asteroid,false,false,,
+PROCYON,2014-12-03,Japan,JAXA (Japan) Asteroid Flyby Mission,Asteroid,false,false,,
+ExoMars 2016,2016-03-14,European Space Agency,ESA Mars Orbiter and Lander,Mars,false,false,,
+OSIRIS-REx,2016-09-08,United States,Sample Return Mission to Asteroid Bennu,Asteroid,false,false,Atlas V,1528
+InSight,2018-05-05,United States,Mars Lander,Mars,false,false,Atlas V 401,360
+Queqiao,2018-05-20,China,CNSA (China) Lunar Relay Satellite,Moon,false,false,,
+Parker Solar Probe,2018-08-12,United States,Solar Orbiter - Venus Flybys,Sun,false,false,Delta IV,685
+BepiColombo,2018-10-19,European Space Agency,ESA and JAXA Mercury Orbiters,Mercury,false,false,,
+Chang'e 4,2018-12-07,China,CNSA (China) Lunar Farside Lander and Rover,Moon,false,false,,
+Beresheet,2019-02-22,Israel,SpaceIL and IAI (Israel) Lunar Lander,Moon,false,false,,
+Chandrayaan 2,2019-07-22,India,"ISRO (India) Moon Orbiter, Lander, and Rover",Moon,false,false,,
+Solar Orbiter,2020-02-10,European Space Agency,ESA solar orbiting mission,Sun,false,false,,
+Hope,2020-07-19,United Arab Emirates,United Arab Emirates Mars Orbiter,Mars,false,false,,
+Tianwen 1,2020-07-23,China,CNSA (China) Mars Orbiter and Rover,Mars,false,false,,
+Mars 2020,2020-07-30,United States,Mars Rover and Rotorcraft,Mars,false,false,Atlas V,1050
+Chang'e 5,2020-11-23,China,CNSA (China) Lunar Sample Return Mission,Moon,false,false,,
+Q-PACE,2021-01-17,United States,Microgravity Particle Collision Study CubeSat,,false,false,LauncherOne,3
+Lucy,2021-10-16,United States,Trojan Asteroid Flybys,Asteroid,false,false,Atlas V 401,821
+Double Asteroid Redirection Test (DART),2021-11-24,United States,Asteroid Dimorphos Impactor,Asteroid,false,false,Falcon 9,670
+LICIACube,2021-11-24,Italy,Asteroid Dimorphos Imaging Cubesat,Asteroid,false,false,,
+James Webb Space Telescope,2021-12-25,United States,L2 Orbiting Infrared Observatory,Earth / near-Earth space,false,false,Ariane 5,6500
+CAPSTONE,2022-06-28,United States,Lunar Navigation Test Orbiter,Moon,false,false,Electron,25
+Korea Pathfinder Lunar Orbiter (Danuri),2022-08-04,South Korea,KARI (South Korea) Lunar Orbiter,Moon,false,false,,
+LunaH-Map,2022-11-16,United States,Lunar Orbiting CubeSat,Moon,false,false,SLS Block 1 Crew,14
+Lunar Ice Cube,2022-11-16,United States,Lunar Orbiting CubeSat,Moon,false,false,SLS Block 1 Crew,14
+NEA Scout,2022-11-16,United States,Asteroid Flyby CubeSat,Asteroid,false,false,SLS Block 1 Crew,14
+Lunar InfraRed imaging (LunIR),2022-11-16,United States,Lunar Flyby and Technology Test CubeSat,Moon,false,false,,
+OMOTENASHI,2022-11-16,Japan,JAXA (Japan) Lunar Lander CubeSat,Moon,false,false,,
+EQUULEUS,2022-11-16,Japan,JAXA (Japan) L2 Orbit Lunar CubeSat,Earth / near-Earth space,false,false,,
+Artemis 1,2022-11-16,United States,Lunar Test Flight,Moon,false,false,SLS Block 1 Crew,
+Lunar Flashlight,2022-12-11,United States,Lunar Orbiter CubeSat,Moon,false,false,Falcon 9 Full Thrust,14
+Hakuto-R M1,2022-12-11,Japan,Lunar Lander,Moon,false,false,,
+JUpiter ICy moons Explorer (JUICE),2023-04-14,European Space Agency,ESA Ganymede-Callisto-Europa multiple flyby mission,Ganymede,false,false,,
+Chandrayaan 3,2023-07-14,India,"ISRO (India) Lunar Orbiter, Lander, and Rover",Moon,false,false,,
+Luna 25,2023-08-10,Russia,Russian Lunar Lander,Moon,false,false,,
+SLIM,2023-09-06,Japan,JAXA (Japan) Lunar Lander,Moon,false,false,,
+Psyche,2023-10-13,United States,Main Belt Asteroid Orbiter,Asteroid,false,false,Falcon 9 Heavy,1400
+Peregrine Mission 1 (Astrobotic),2024-01-08,United States,Lunar Lander,Moon,false,false,,
+Intuitive Machines 1 (Odysseus),2024-02-15,United States,Lunar Lander,Moon,false,false,,
+Queqiao 2,2024-03-20,China,CNSA (China) Lunar Relay Satellite,Moon,false,false,,
+Chang'e 6,2024-05-03,China,CNSA (China) Lunar Sample Return Mission,Moon,false,false,,
+Hera,2024-10-07,European Space Agency,ESA mission to asteroids Didymos and Dimorphos,Asteroid,false,false,,
+Europa Clipper,2024-10-14,United States,Jupiter Orbiter - Multiple Europa Flybys,Jupiter,false,false,,
+M2/Resilience,2025-01-15,Japan,JAXA (Japan) Lunar Lander and Rover,Moon,false,false,,
+Blue Ghost 1 (Firefly),2025-01-15,United States,Lunar Lander,Moon,false,false,Falcon 9,
+Intuitive Machines 2 (PRIME-1),2025-02-26,United States,Lunar Lander,Moon,false,false,Falcon 9,
+Lunar Trailblazer,2025-02-26,United States,Lunar Orbiting Small Satellite,Moon,false,false,Falcon 9,200
