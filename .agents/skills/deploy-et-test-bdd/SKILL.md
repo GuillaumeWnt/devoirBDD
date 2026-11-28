@@ -39,9 +39,9 @@ Sous PowerShell (avec `psql` dans le `PATH` ou chemin complet PostgreSQL, par ex
    ```powershell
    uv sync
    uv run ruff check .
+   uv run python import_csv.py --dry-run
    uv run python app.py
    uv run python insertion_echantillon.py
-   uv run python import_csv.py data/exemple_corps_celestes.csv --dry-run
    ```
 2. Avec un `venv` classique (collaborateur sans `uv`) :
    ```powershell
@@ -53,8 +53,8 @@ Sous PowerShell (avec `psql` dans le `PATH` ou chemin complet PostgreSQL, par ex
 
 ## 4. Critères de réussite
 
-- `01_schema.sql` (8 tables), `02_seed.sql` et `03_queries.sql` (3 états + graphe + auth MD5) s'exécutent sans erreur SQL.
+- `01_schema.sql` (8 tables), `02_seed.sql` (15 corps célestes, 279 missions réelles) et `03_queries.sql` (6 requêtes) s'exécutent sans erreur SQL.
 - `uv run ruff check .` retourne 0 erreur.
-- `app.py` authentifie les 3 profils via `md5(%s)`, contrôle les droits d'écriture/suppression, exécute CRUD + vérifications, les 3 états et Dijkstra sur le graphe orbital.
-- `insertion_echantillon.py` affiche `[OK] Connecté avec succès à la base 'exploration_spatiale'`, `[INSERT/UPDATE]`, `[COMMIT]`, puis 4 échantillons (`PER-01-ROU`, `MSL-01-CUM`, `ROS-01-COM`, `ART-01-REG`).
-- `import_csv.py --dry-run` valide les 3 lignes du fichier exemple sans modifier la base.
+- `import_csv.py --dry-run` valide les 15 corps célestes et 279 missions des 2 CSV de `data/`.
+- `app.py` authentifie les 3 profils via `md5(%s)`, contrôle les droits, exécute CRUD + vérifications, les 3 états et Dijkstra.
+- `insertion_echantillon.py` effectue l'UPSERT `1:1` sur `Chang'e 5` (`CHG-05-OCE`) et affiche les 6 échantillons.
