@@ -2,7 +2,8 @@
 PROJET : EXPLORATION SPATIALE & PLANÉTOLOGIE (3NF — 8 TABLES)
 Fichier : insertion_echantillon.py
 Description : Script autonome démontrant l'insertion sécurisée paramétrée (%s)
-              avec gestion de la relation 1:1 (mission <-> echantillon) via UPSERT.
+              avec gestion de la relation 1:1 (mission <-> echantillon) via UPSERT
+              sur la vraie mission 'Chang'e 5' issue du CSV.
 """
 
 from db import charger_config_db, configurer_sortie_utf8, ouvrir_connexion
@@ -19,16 +20,30 @@ def main() -> None:
     with ouvrir_connexion(db_config) as conn, conn.cursor() as cur:
         print(f"[OK] Connecté avec succès à la base '{db_config.dbname}'.\n")
 
-        # 2. Données du nouvel échantillon (attribué à la mission Artemis III, id_mission = 5)
+        # 2. Recherche de la vraie mission 'Chang'e 5' issue du CSV
+        nom_mission_cible = "Chang'e 5"
+        cur.execute(
+            "SELECT id_mission FROM mission WHERE nom_mission = %s;",
+            (nom_mission_cible,),
+        )
+        mission_row = cur.fetchone()
+        if mission_row is None:
+            raise RuntimeError(
+                f"Mission '{nom_mission_cible}' introuvable. Exécutez d'abord "
+                "sql/01_schema.sql et sql/02_seed.sql (ou import_csv.py)."
+            )
+        id_mission = int(mission_row[0])
+
+        # 3. Données de l'échantillon lunaire réel ramené par Chang'e 5 (1731 g)
         # En relation 1:1, chaque mission ne peut avoir qu'un seul échantillon
         nouvel_echantillon = (
-            "ART-01-REG",                       # code_tube (UNIQUE)
-            "Régolithe anorthositique lunaire",  # type_roche
-            15.50,                              # masse_grammes
-            5,                                  # id_mission (FK UNIQUE -> Artemis III)
+            "CHG-05-OCE",                                # code_tube (UNIQUE)
+            "Régolithe basaltique (Océan des Tempêtes)", # type_roche
+            1731.00,                                     # masse_grammes
+            id_mission,                                  # id_mission (FK UNIQUE -> Chang'e 5)
         )
 
-        # 3. Insertion sécurisée avec paramètres (%s) et gestion du conflit 1:1 (UPSERT sur id_mission)
+        # 4. Insertion sécurisée avec paramètres (%s) et gestion du conflit 1:1 (UPSERT)
         query_insert = """
             INSERT INTO echantillon (
                 code_tube,
@@ -49,15 +64,15 @@ def main() -> None:
             raise RuntimeError("Aucun identifiant retourné après l'insertion.")
         id_genere = row_id[0]
         print(
-            f"[INSERT/UPDATE] Échantillon (1:1) associé à la mission #5 "
-            f"avec l'identifiant #{id_genere}"
+            f"[INSERT/UPDATE] Échantillon (1:1) associé à '{nom_mission_cible}' "
+            f"(mission #{id_mission}) avec l'identifiant #{id_genere}"
         )
 
-        # 4. Validation explicite de la transaction
+        # 5. Validation explicite de la transaction
         conn.commit()
         print("[COMMIT] Transaction validée en base.\n")
 
-        # 5. Lecture des données avec jointure pour vérifier la relation 1:1
+        # 6. Lecture des données avec jointure pour vérifier la relation 1:1
         print("=== LISTE DES ÉCHANTILLONS EN BASE (Relation 1:1 avec les missions) ===")
         query_select = """
             SELECT
@@ -66,10 +81,10 @@ def main() -> None:
                 e.type_roche,
                 e.masse_grammes,
                 m.nom_mission,
-                c.nom AS planete_cible
+                COALESCE(c.nom, 'Non précisée') AS cible
             FROM echantillon e
             INNER JOIN mission m ON e.id_mission = m.id_mission
-            INNER JOIN corps_celeste c ON m.id_corps = c.id_corps
+            LEFT JOIN corps_celeste c ON m.id_corps = c.id_corps
             ORDER BY e.id_echantillon;
         """
         cur.execute(query_select)
@@ -77,8 +92,8 @@ def main() -> None:
 
         for row in rows:
             print(
-                f"ID #{row[0]:<2} | Code: {row[1]:<12} | Roche: {row[2]:<35} "
-                f"| Masse: {row[3]:>5} g | Mission: {row[4]} ({row[5]})"
+                f"ID #{row[0]:<2} | Code: {row[1]:<11} | Roche: {row[2]:<43} "
+                f"| Masse: {row[3]:>8} g | Mission: {row[4]} ({row[5]})"
             )
 
     print("\nOpération terminée avec succès !")

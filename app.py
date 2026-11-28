@@ -2,13 +2,15 @@
 PROJET : EXPLORATION SPATIALE & PLANÉTOLOGIE (3NF — 8 TABLES)
 Fichier : app.py
 Description : Application Python en ligne de commande (CLI) exploitant la base
-              PostgreSQL 'exploration_spatiale' :
+              PostgreSQL 'exploration_spatiale' alimentée par les 2 CSV réels
+              (15 corps célestes, 279 missions historiques) :
               - Authentification multi-profils par mot de passe haché (md5)
               - CRUD complet (insertion, modification avec preuve, suppression vérifiée)
               - 3 états SQL multi-tables (INNER JOIN, LEFT JOIN, GROUP BY + HAVING)
               - Exploitation du graphe orienté et pondéré (réseau + Dijkstra)
 """
 
+import datetime
 import getpass
 import heapq
 import sys
@@ -67,10 +69,16 @@ def demander_entier(invite: str, optionnel: bool = False) -> int | None:
             print("[!] Veuillez saisir un entier valide.")
 
 
-def demander_flottant(invite: str, strictement_positif: bool = True) -> float:
+def demander_flottant(
+    invite: str,
+    strictement_positif: bool = True,
+    optionnel: bool = False,
+) -> float | None:
     """Demande un nombre décimal (accepte la virgule ou le point)."""
     while True:
         brut = input(invite).strip().replace(",", ".")
+        if not brut and optionnel:
+            return None
         try:
             valeur = float(brut)
             if strictement_positif and valeur <= 0:
@@ -79,6 +87,19 @@ def demander_flottant(invite: str, strictement_positif: bool = True) -> float:
             return valeur
         except ValueError:
             print("[!] Veuillez saisir un nombre valide (ex. 12.50).")
+
+
+def demander_date(invite: str, optionnel: bool = True) -> str | None:
+    """Demande une date au format AAAA-MM-JJ (ex. 2026-11-30)."""
+    while True:
+        brut = input(invite).strip()
+        if not brut and optionnel:
+            return None
+        try:
+            datetime.date.fromisoformat(brut)
+            return brut
+        except ValueError:
+            print("[!] Format de date attendu : AAAA-MM-JJ (ex. 2026-11-30).")
 
 
 # ====================================================================
@@ -222,39 +243,81 @@ def lister_utilisateurs(conn: Conn) -> None:
 
 
 # ====================================================================
-# AIDES D'AFFICHAGE DE RÉFÉRENCE
+# AIDES D'AFFICHAGE DE RÉFÉRENCE (ADAPTÉES AUX 279 MISSIONS CSV)
 # ====================================================================
 
 
 def afficher_corps_celestes(conn: Conn) -> None:
-    """Affiche la liste numérotée des corps célestes."""
+    """Affiche la liste des corps célestes (15 astres issus des 2 CSV)."""
     with conn.cursor() as cur:
         cur.execute(
-            "SELECT id_corps, nom, type_corps, distance_soleil_ua "
-            "FROM corps_celeste ORDER BY id_corps;"
+            """
+            SELECT id_corps, nom, type_corps, distance_soleil_ua, diametre_km, gravite_m_s2
+            FROM corps_celeste
+            ORDER BY id_corps;
+            """
         )
         print("\nCorps célestes disponibles :")
         for row in cur.fetchall():
-            dist = f"{row[3]} UA" if row[3] is not None else "N/A"
-            print(f"  #{row[0]:<2} | {row[1]:<18} | {row[2]:<20} | {dist}")
-
-
-def afficher_missions(conn: Conn) -> None:
-    """Affiche la liste des missions existantes."""
-    query = """
-        SELECT m.id_mission, m.nom_mission, m.agence_spatiale, m.statut, c.nom
-        FROM mission m
-        INNER JOIN corps_celeste c ON m.id_corps = c.id_corps
-        ORDER BY m.id_mission;
-    """
-    with conn.cursor() as cur:
-        cur.execute(query)
-        print("\nMissions enregistrées :")
-        for row in cur.fetchall():
+            dist = f"{row[3]:>7} UA" if row[3] is not None else "       N/A"
+            diam = f"{row[4]:>9} km" if row[4] is not None else "         N/A"
+            grav = f"{row[5]:>5} m/s²" if row[5] is not None else "        N/A"
             print(
-                f"  #{row[0]:<2} | {row[1]:<28} | {row[2]:<12} "
-                f"| Statut: {row[3]:<16} | Cible: {row[4]}"
+                f"  #{row[0]:<2} | {row[1]:<11} | {row[2]:<13} | {dist} | {diam} | {grav}"
             )
+
+
+def afficher_missions(conn: Conn, filtre: str = "", limite: int = 15) -> None:
+    """Affiche les dernières missions ou filtre les 279 missions par mot-clé."""
+    if filtre:
+        motif = f"%{filtre}%"
+        query = """
+            SELECT
+                m.id_mission,
+                m.nom_mission,
+                COALESCE(TO_CHAR(m.date_lancement, 'YYYY-MM-DD'), 'N/A'),
+                m.pays_operateur,
+                COALESCE(c.nom, 'Sans cible'),
+                m.type_mission
+            FROM mission m
+            LEFT JOIN corps_celeste c ON m.id_corps = c.id_corps
+            WHERE m.nom_mission ILIKE %s
+               OR m.pays_operateur ILIKE %s
+               OR COALESCE(c.nom, '') ILIKE %s
+            ORDER BY m.date_lancement DESC NULLS LAST, m.id_mission DESC
+            LIMIT %s;
+        """
+        params: tuple[Any, ...] = (motif, motif, motif, limite)
+        titre = f"\nMissions correspondant à '{filtre}' (max {limite}) :"
+    else:
+        query = """
+            SELECT
+                m.id_mission,
+                m.nom_mission,
+                COALESCE(TO_CHAR(m.date_lancement, 'YYYY-MM-DD'), 'N/A'),
+                m.pays_operateur,
+                COALESCE(c.nom, 'Sans cible'),
+                m.type_mission
+            FROM mission m
+            LEFT JOIN corps_celeste c ON m.id_corps = c.id_corps
+            ORDER BY m.date_lancement DESC NULLS LAST, m.id_mission DESC
+            LIMIT %s;
+        """
+        params = (limite,)
+        titre = f"\n{limite} missions les plus récentes (sur l'ensemble du catalogue) :"
+
+    with conn.cursor() as cur:
+        cur.execute(query, params)
+        rows = cur.fetchall()
+
+    print(titre)
+    if not rows:
+        print("  (Aucune mission trouvée pour ce filtre)")
+        return
+    for row in rows:
+        print(
+            f"  #{row[0]:<3} | {row[2]} | {row[1]:<34} | {row[3]:<21} | Cible: {row[4]}"
+        )
 
 
 def afficher_echantillons(conn: Conn) -> None:
@@ -273,8 +336,8 @@ def afficher_echantillons(conn: Conn) -> None:
             print("  (Aucun échantillon en base)")
         for row in rows:
             print(
-                f"  #{row[0]:<2} | {row[1]:<12} | {row[2]:<34} "
-                f"| {row[3]:>6} g | Mission: {row[4]}"
+                f"  #{row[0]:<2} | {row[1]:<11} | {row[2]:<43} "
+                f"| {row[3]:>8} g | Mission: {row[4]}"
             )
 
 
@@ -284,25 +347,47 @@ def afficher_echantillons(conn: Conn) -> None:
 
 
 def inserer_mission(conn: Conn, session: UtilisateurConnecte) -> None:
-    """Insère une nouvelle mission spatiale (relation 1:N avec corps_celeste)."""
+    """Insère une nouvelle mission spatiale (relation 0..1:N avec corps_celeste)."""
     if not verifier_droit_ecriture(session):
         return
 
     print("\n=== INSÉRER UNE NOUVELLE MISSION ===")
     afficher_corps_celestes(conn)
     nom_mission = demander_texte("Nom de la mission : ")
-    agence = demander_texte("Agence spatiale (ex. ESA, NASA, JAXA) : ")
-    statut = demander_texte("Statut (Opérationnelle / En transit / En préparation / Terminée) : ")
-    id_corps = demander_entier("ID du corps céleste ciblé : ")
+    date_lancement = demander_date("Date de lancement (AAAA-MM-JJ, vide si inconnue) : ")
+    pays_operateur = demander_texte("Pays ou agence opératrice (ex. European Space Agency) : ")
+    type_mission = demander_texte("Type de mission (ex. Lunar Lander) : ")
+    lanceur_brut = demander_texte("Lanceur (optionnel, ex. Ariane 6) : ", obligatoire=False)
+    lanceur = lanceur_brut if lanceur_brut else None
+    masse_kg = demander_flottant("Masse en kg (optionnelle, > 0) : ", optionnel=True)
+    id_corps = demander_entier(
+        "ID du corps céleste ciblé (laisser vide si sans cible planétaire) : ",
+        optionnel=True,
+    )
 
     query = """
-        INSERT INTO mission (nom_mission, agence_spatiale, statut, id_corps, id_responsable)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO mission (
+            nom_mission, date_lancement, pays_operateur, type_mission,
+            tentative, echec_lancement, lanceur, masse_kg, id_corps, id_responsable
+        )
+        VALUES (%s, %s, %s, %s, FALSE, FALSE, %s, %s, %s, %s)
         RETURNING id_mission;
     """
     try:
         with conn.cursor() as cur:
-            cur.execute(query, (nom_mission, agence, statut, id_corps, session.id_utilisateur))
+            cur.execute(
+                query,
+                (
+                    nom_mission,
+                    date_lancement,
+                    pays_operateur,
+                    type_mission,
+                    lanceur,
+                    masse_kg,
+                    id_corps,
+                    session.id_utilisateur,
+                ),
+            )
             row = cur.fetchone()
         conn.commit()
         if row is not None:
@@ -318,8 +403,12 @@ def inserer_echantillon(conn: Conn, session: UtilisateurConnecte) -> None:
         return
 
     print("\n=== INSÉRER UN ÉCHANTILLON (Relation 1:1 avec mission) ===")
-    afficher_missions(conn)
-    code_tube = demander_texte("Code unique du tube (ex. ART-01-REG) : ")
+    filtre = demander_texte(
+        "Filtrer les missions par mot-clé (ex. Chang, Apollo, Mars ; vide = récentes) : ",
+        obligatoire=False,
+    )
+    afficher_missions(conn, filtre=filtre)
+    code_tube = demander_texte("Code unique du tube (ex. CHG-05-OCE) : ")
     type_roche = demander_texte("Type de roche prélevée : ")
     masse = demander_flottant("Masse en grammes (> 0) : ")
     id_mission = demander_entier("ID de la mission associée : ")
@@ -386,19 +475,28 @@ def modifier_enregistrement(conn: Conn, session: UtilisateurConnecte) -> None:
         return
 
     print("\n=== MODIFIER UN ENREGISTREMENT ===")
-    print("  1. Modifier le statut d'une mission")
-    print("  2. Modifier la masse et la nature d'un échantillon")
+    print("  1. Modifier le type et/ou le lanceur d'une mission")
+    print("  2. Modifier la nature et la masse d'un échantillon")
     choix = input("Votre choix (1/2) : ").strip()
 
     if choix == "1":
-        afficher_missions(conn)
+        filtre = demander_texte(
+            "Filtrer les missions par mot-clé (vide = 15 plus récentes) : ",
+            obligatoire=False,
+        )
+        afficher_missions(conn, filtre=filtre)
         id_mission = demander_entier("ID de la mission à modifier : ")
-        nouveau_statut = demander_texte("Nouveau statut : ")
+        nouveau_type = demander_texte("Nouveau type de mission : ")
+        nouveau_lanceur_brut = demander_texte(
+            "Nouveau lanceur (laisser vide pour conserver l'actuel) : ",
+            obligatoire=False,
+        )
 
         try:
             with conn.cursor() as cur:
                 cur.execute(
-                    "SELECT nom_mission, statut FROM mission WHERE id_mission = %s;",
+                    "SELECT nom_mission, type_mission, lanceur "
+                    "FROM mission WHERE id_mission = %s;",
                     (id_mission,),
                 )
                 avant = cur.fetchone()
@@ -406,17 +504,23 @@ def modifier_enregistrement(conn: Conn, session: UtilisateurConnecte) -> None:
                     print(f"[!] Aucune mission trouvée avec l'ID #{id_mission}.")
                     return
 
+                lanceur_final = nouveau_lanceur_brut if nouveau_lanceur_brut else avant[2]
                 cur.execute(
-                    "UPDATE mission SET statut = %s WHERE id_mission = %s "
-                    "RETURNING id_mission, nom_mission, statut;",
-                    (nouveau_statut, id_mission),
+                    """
+                    UPDATE mission
+                    SET type_mission = %s, lanceur = %s
+                    WHERE id_mission = %s
+                    RETURNING id_mission, nom_mission, type_mission, lanceur;
+                    """,
+                    (nouveau_type, lanceur_final, id_mission),
                 )
                 apres = cur.fetchone()
             conn.commit()
             if apres is not None:
                 print(
-                    f"[UPDATE] Mission #{apres[0]} ({apres[1]}) : "
-                    f"'{avant[1]}' -> '{apres[2]}'"
+                    f"[UPDATE] Mission #{apres[0]} ({apres[1]}) :\n"
+                    f"  Avant : type='{avant[1]}' | lanceur='{avant[2]}'\n"
+                    f"  Après : type='{apres[2]}' | lanceur='{apres[3]}'"
                 )
         except psycopg.Error as err:
             conn.rollback()
@@ -487,14 +591,17 @@ def supprimer_enregistrement(conn: Conn, session: UtilisateurConnecte) -> None:
     if choix == "1":
         afficher_echantillons(conn)
     elif choix == "2":
-        afficher_missions(conn)
+        filtre = demander_texte(
+            "Filtrer les missions par mot-clé (vide = 15 plus récentes) : ",
+            obligatoire=False,
+        )
+        afficher_missions(conn, filtre=filtre)
     else:
         afficher_reseau_orbital(conn)
 
     table, col_id, col_label = cibles[choix]
     id_cible = demander_entier(f"ID à supprimer dans {table} : ")
 
-    # Les noms de tables/colonnes proviennent uniquement du dictionnaire statique `cibles`.
     requetes_delete = {
         "1": (
             "DELETE FROM echantillon WHERE id_echantillon = %s RETURNING id_echantillon, code_tube;",
@@ -545,12 +652,13 @@ def supprimer_enregistrement(conn: Conn, session: UtilisateurConnecte) -> None:
 # ====================================================================
 
 
-def etat_1_missions_instruments_actifs(conn: Conn) -> None:
-    """État 1 (INNER JOIN sur 5 tables) : instruments sur les missions actives."""
-    print("\n=== ÉTAT 1 : FLOTTE ACTIVE, RESPONSABLES ET INSTRUMENTS (INNER JOIN) ===")
+def etat_1_missions_instruments(conn: Conn) -> None:
+    """État 1 (INNER JOIN sur 5 tables) : instruments des missions suivies."""
+    print("\n=== ÉTAT 1 : MISSIONS SUIVIES, RESPONSABLES ET INSTRUMENTS (INNER JOIN) ===")
     query = """
         SELECT
             m.nom_mission,
+            COALESCE(TO_CHAR(m.date_lancement, 'YYYY-MM-DD'), 'N/A'),
             c.nom AS cible_exploration,
             COALESCE(u.nom_complet, 'Non assigné') AS responsable,
             i.nom_instrument,
@@ -560,8 +668,8 @@ def etat_1_missions_instruments_actifs(conn: Conn) -> None:
         LEFT JOIN utilisateur u ON m.id_responsable = u.id_utilisateur
         INNER JOIN mission_instrument mi ON m.id_mission = mi.id_mission
         INNER JOIN instrument_scientifique i ON mi.id_instrument = i.id_instrument
-        WHERE m.statut IN ('Opérationnelle', 'En transit')
-        ORDER BY m.nom_mission, i.nom_instrument;
+        WHERE m.echec_lancement = FALSE
+        ORDER BY m.date_lancement DESC, m.nom_mission, i.nom_instrument;
     """
     with conn.cursor() as cur:
         cur.execute(query)
@@ -569,37 +677,39 @@ def etat_1_missions_instruments_actifs(conn: Conn) -> None:
 
     for row in rows:
         print(
-            f"Mission: {row[0]:<25} | Cible: {row[1]:<8} | Resp.: {row[2]:<15} "
-            f"| Instr.: {row[3]:<10} | Rôle: {row[4]}"
+            f"{row[1]} | {row[0]:<34} | Cible: {row[2]:<8} | Resp.: {row[3]:<14} "
+            f"| Instr.: {row[4]:<12} | {row[5]}"
         )
-    print(f"Total : {len(rows)} affectation(s) active(s).")
+    print(f"Total : {len(rows)} affectation(s) scientifique(s).")
 
 
 def etat_2_inventaire_corps_celestes(conn: Conn) -> None:
-    """État 2 (LEFT JOIN + COALESCE) : tous les corps célestes, explorés ou non."""
-    print("\n=== ÉTAT 2 : INVENTAIRE COMPLET DES CORPS CÉLESTES (LEFT JOIN) ===")
+    """État 2 (LEFT JOIN + GROUP BY) : couverture des 15 corps célestes."""
+    print("\n=== ÉTAT 2 : COUVERTURE DES CORPS CÉLESTES PAR LES MISSIONS (LEFT JOIN) ===")
     query = """
         SELECT
             c.nom AS corps_celeste,
             c.type_corps,
             c.distance_soleil_ua,
-            COALESCE(m.nom_mission, '--- Aucune mission ---') AS mission_assignee,
-            COALESCE(m.statut, 'Non exploré') AS statut_exploration
+            COUNT(m.id_mission) AS nb_missions,
+            SUM(CASE WHEN m.echec_lancement THEN 1 ELSE 0 END) AS nb_echecs,
+            COALESCE(TO_CHAR(MAX(m.date_lancement), 'YYYY-MM-DD'), 'Aucune mission cible')
         FROM corps_celeste c
         LEFT JOIN mission m ON c.id_corps = m.id_corps
-        ORDER BY c.distance_soleil_ua ASC, c.nom ASC;
+        GROUP BY c.id_corps, c.nom, c.type_corps, c.distance_soleil_ua
+        ORDER BY nb_missions DESC, c.distance_soleil_ua ASC NULLS LAST, c.nom ASC;
     """
     with conn.cursor() as cur:
         cur.execute(query)
         rows = cur.fetchall()
 
     for row in rows:
-        dist = f"{row[2]:>6} UA" if row[2] is not None else "   N/A   "
+        dist = f"{row[2]:>7} UA" if row[2] is not None else "       N/A"
         print(
-            f"Astre: {row[0]:<17} | {row[1]:<19} | {dist} "
-            f"| Mission: {row[3]:<25} | {row[4]}"
+            f"Astre: {row[0]:<10} | {row[1]:<12} | {dist} | Missions: {row[3]:>3} "
+            f"| Échecs: {row[4]:>2} | Dernier tir: {row[5]}"
         )
-    print(f"Total : {len(rows)} ligne(s) d'inventaire.")
+    print(f"Total : {len(rows)} corps céleste(s) inventorié(s).")
 
 
 def etat_3_bilan_echantillons_par_corps(conn: Conn) -> None:
@@ -624,8 +734,8 @@ def etat_3_bilan_echantillons_par_corps(conn: Conn) -> None:
 
     for row in rows:
         print(
-            f"Astre: {row[0]:<17} | Échantillons: {row[1]:<2} "
-            f"| Masse totale: {row[2]:>6} g | Moyenne: {row[3]:>6} g"
+            f"Astre: {row[0]:<10} | Échantillons: {row[1]:<2} "
+            f"| Masse totale: {row[2]:>9} g | Moyenne: {row[3]:>9} g"
         )
     print(f"Total : {len(rows)} astre(s) avec au moins 1 échantillon.")
 
@@ -664,7 +774,7 @@ def afficher_reseau_orbital(conn: Conn) -> None:
 
     for row in rows:
         print(
-            f"#{row[0]:<2} | {row[1]:<16} -> {row[2]:<16} | Δv: {row[3]:>8} m/s "
+            f"#{row[0]:<2} | {row[1]:<9} -> {row[2]:<9} | Δv: {row[3]:>8} m/s "
             f"| Durée: {row[4]:>6} j | {row[5]:<11} | {row[6]}"
         )
     print(f"Total : {len(rows)} arête(s) orientée(s).")
@@ -680,7 +790,6 @@ def calculer_plus_court_chemin(
     if depart == arrivee:
         return ([], 0.0, 0.0)
 
-    # File de priorité : (poids_cumulé, sommet_courant)
     file_priorite: list[tuple[float, str]] = [(0.0, depart)]
     meilleurs_couts: dict[str, float] = {depart: 0.0}
     precedents: dict[str, tuple[str, float, float, str]] = {}
@@ -785,12 +894,12 @@ def afficher_menu(session: UtilisateurConnecte) -> None:
         if session.peut_supprimer
         else ("Lecture + Écriture" if session.peut_ecrire else "Lecture seule")
     )
-    print("\n" + "=" * 68)
+    print("\n" + "=" * 72)
     print(
         f" EXPLORATION SPATIALE | {session.nom_complet} ({session.nom_profil}) "
         f"| Droits : {droits}"
     )
-    print("=" * 68)
+    print("=" * 72)
     print("  [CRUD — GESTION DES DONNÉES]")
     print("   1. Insérer une nouvelle mission")
     print("   2. Insérer / mettre à jour un échantillon (relation 1:1)")
@@ -798,9 +907,9 @@ def afficher_menu(session: UtilisateurConnecte) -> None:
     print("   4. Modifier un enregistrement existant (avec vérification)")
     print("   5. Supprimer un enregistrement existant (avec vérification)")
     print("  [LES 3 ÉTATS SQL MULTI-TABLES]")
-    print("   6. État 1 : Flotte active, responsables et instruments (INNER JOIN)")
-    print("   7. État 2 : Inventaire complet des corps célestes (LEFT JOIN)")
-    print("   8. État 3 : Bilan géologique par astre (GROUP BY + HAVING)")
+    print("   6. État 1 : Missions suivies, responsables et instruments (INNER JOIN)")
+    print("   7. État 2 : Couverture des 15 corps célestes (LEFT JOIN)")
+    print("   8. État 3 : Bilan géologique par astre exploré (GROUP BY + HAVING)")
     print("  [GRAPHE ORIENTÉ ET PONDÉRÉ]")
     print("   9. Afficher le réseau des trajectoires (double sens / sens unique)")
     print("  10. Calculer l'itinéraire optimal entre deux astres (Dijkstra)")
@@ -841,7 +950,7 @@ def main() -> None:
             elif choix == "5":
                 supprimer_enregistrement(conn, session)
             elif choix == "6":
-                etat_1_missions_instruments_actifs(conn)
+                etat_1_missions_instruments(conn)
             elif choix == "7":
                 etat_2_inventaire_corps_celestes(conn)
             elif choix == "8":
